@@ -1,3 +1,6 @@
+0.07	28 December 2003
+	Added automatic required modules update using Devel::Required.
+
 0.06	13 August 2003
 	Cleaned up Makefile.PL and updated copyright info.  Made sure the
 	test-suite runs ok with warnings enabled.

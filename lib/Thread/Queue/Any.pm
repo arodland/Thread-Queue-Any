@@ -5,7 +5,7 @@ package Thread::Queue::Any;
 # Make sure we do everything by the book from now on
 
 @ISA = qw(Thread::Queue);
-$VERSION = '0.06';
+$VERSION = '0.07';
 use strict;
 
 # Make sure we have Storable
@@ -153,6 +153,11 @@ C<dequeue_dontwait> will have a specific value.
  $pending = $queue->pending;
 
 The C<pending> method returns the number of items still in the queue.
+
+=head1 REQUIRED MODULES
+
+ Storable (any)
+ Thread::Queue (any)
 
 =head1 CAVEATS
 
