@@ -5,13 +5,14 @@ BEGIN {				# Magic Perl CORE pragma
     }
 }
 
-use Test::More tests => 13;
+use Test::More tests => 14;
 
 BEGIN { use_ok('threads') }
 BEGIN { use_ok('Thread::Queue::Any') }
 
 my $q = Thread::Queue::Any->new;
 isa_ok( $q, 'Thread::Queue::Any', 'check object type' );
+can_ok( $q,qw(enqueue dequeue dequeue_dontwait pending dequeue_nb) );
 
 $q->enqueue( qw(a b c) );
 $q->enqueue( [qw(a b c)] );
@@ -39,5 +40,5 @@ ok(
  'check hash ref'
 );
 
-my @e = $q->dequeue_nb;
+my @e = $q->dequeue_dontwait;
 cmp_ok( @e, '==', 0,			'check # elements non blocking' );

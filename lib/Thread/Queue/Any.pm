@@ -5,7 +5,7 @@ package Thread::Queue::Any;
 # Make sure we do everything by the book from now on
 
 @ISA = qw(Thread::Queue);
-$VERSION = '0.03';
+$VERSION = '0.04';
 use strict;
 
 # Make sure we have Storable
@@ -13,6 +13,10 @@ use strict;
 
 use Storable ();      # no need to pollute namespace
 use Thread::Queue (); # no need to pollute namespace
+
+# Allow for synonym for dequeue_dontwait
+
+*dequeue_nb = \&dequeue_dontwait;
 
 # Satisfy -require-
 
@@ -38,10 +42,12 @@ sub dequeue {
 #  IN: 1 instantiated object
 # OUT: 1..N parameters returned from a set on the queue
 
-sub dequeue_nb {
+sub dequeue_dontwait {
     return unless my $ref = shift->SUPER::dequeue_nb;
     @{Storable::thaw( $ref )};
 }
+
+#---------------------------------------------------------------------------
 
 __END__
 
@@ -55,7 +61,7 @@ Thread::Queue::Any - thread-safe queues for any data-structure
     my $q = Thread::Queue::Any->new;
     $q->enqueue("foo", ["bar"], {"zoo"});
     my ($foo,$bar,$zoo) = $q->dequeue;
-    my ($foo,$bar,$zoo) = $q->dequeue_nb;
+    my ($foo,$bar,$zoo) = $q->dequeue_dontwait;
     my $left = $q->pending;
 
 =head1 DESCRIPTION
@@ -108,14 +114,17 @@ The C<dequeue> method removes a reference from the head of the queue,
 dereferences it and returns the resulting values.  If the queue is currently
 empty, C<dequeue> will block the thread until another thread C<enqueue>s.
 
-=head2 dequeue_nb
+=head2 dequeue_dontwait
 
- ($string,$scalar,$listref,$hashref) = $queue->dequeue;
+ ($string,$scalar,$listref,$hashref) = $queue->dequeue_dontwait;
 
-The C<dequeue_nb> method, like the C<dequeue> method, removes a scalar from
-the head of the queue and returns it. Unlike C<dequeue>, though,
-C<dequeue_nb> won't block if the queue is empty, instead returning
-C<undef>.
+The C<dequeue_dontwait> method, like the C<dequeue> method, removes a
+reference from the head of the queue, dereferences it and returns the
+resulting values.  Unlike C<dequeue>, though, C<dequeue_dontwait> won't wait
+if the queue is empty, instead returning an empty list if the queue is empty.
+
+For compatibility with L<Thread::Queue>, the name "dequeue_nb" is available
+as a synonym for this method.
 
 =head2 pending
 
