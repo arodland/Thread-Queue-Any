@@ -1,3 +1,10 @@
+0.03	14 July 2002
+	Added -use threads- to Makefile.PL to cause breakage if attempting
+	to install on a system without threads.
+
+	Added Perl version requirement to README and pod per suggestion of
+	mrbbking.
+
 0.02	13 July 2002
 	Added copyright info to pod.
 

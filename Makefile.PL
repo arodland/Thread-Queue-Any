@@ -1,5 +1,5 @@
 require 5.008;
-use Config;
+use threads (); # just to force breakage if threads are not available
 use ExtUtils::MakeMaker;
 
 WriteMakefile (
