@@ -1,0 +1,9 @@
+0.02	13 July 2002
+	Added copyright info to pod.
+
+	Name change threads::shared:: -> Thread:: caused this module to be
+	renamed to Thread::Queue::Any.  And all the other changes that were
+	necessary.
+
+0.01	10 July 2002
+	First version of threads::shared::queue::any.
