@@ -1,11 +1,11 @@
 package Thread::Queue::Any;
 
-# Make sure we inherit from threads::shared::queue
+# Make sure we inherit from Thread::Queue
 # Make sure we have version info for this module
 # Make sure we do everything by the book from now on
 
-@ISA = qw(Thread::Queue);
-$VERSION = '0.04';
+our @ISA : unique = qw(Thread::Queue);
+our $VERSION : unique = '0.05';
 use strict;
 
 # Make sure we have Storable
@@ -48,6 +48,16 @@ sub dequeue_dontwait {
 }
 
 #---------------------------------------------------------------------------
+#  IN: 1 instantiated object
+# OUT: 1..N parameters returned from a set on the queue
+
+sub dequeue_keep {
+#    return unless my $ref = shift->SUPER::dequeue_keep; # doesn't exist yet
+    return unless my $ref = shift->[0];			# temporary
+    @{Storable::thaw( $ref )};
+}
+
+#---------------------------------------------------------------------------
 
 __END__
 
@@ -62,6 +72,7 @@ Thread::Queue::Any - thread-safe queues for any data-structure
     $q->enqueue("foo", ["bar"], {"zoo"});
     my ($foo,$bar,$zoo) = $q->dequeue;
     my ($foo,$bar,$zoo) = $q->dequeue_dontwait;
+    my ($iffoo,$ifbar,$ifzoo) = $q->dequeue_keep;
     my $left = $q->pending;
 
 =head1 DESCRIPTION
@@ -125,6 +136,17 @@ if the queue is empty, instead returning an empty list if the queue is empty.
 
 For compatibility with L<Thread::Queue>, the name "dequeue_nb" is available
 as a synonym for this method.
+
+=head2 dequeue_keep
+
+ ($string,$scalar,$listref,$hashref) = $queue->dequeue_keep;
+
+The C<dequeue_keep> method, like the C<dequeue_dontwait> method, takes a
+reference from the head of the queue, dereferences it and returns the
+resulting values.  Unlike C<dequeue_dontwait>, though, the C<dequeue_keep>
+B<won't remove> the set from the queue.  It can therefore be used to test if
+the next set to be returned from the queue with C<dequeue> or
+C<dequeue_dontwait> will have a specific value.
 
 =head2 pending
 

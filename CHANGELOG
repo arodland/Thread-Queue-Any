@@ -1,3 +1,8 @@
+0.05	24 July 2002
+	Made $VERSION and @ISA have the : unique attribute to save memory.
+
+	Added method "dequeue_keep" plus documentation and test-suite.
+
 0.04	21 July 2002
 	Added "can_ok" check to the test-suite.
 

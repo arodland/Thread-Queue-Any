@@ -5,14 +5,22 @@ BEGIN {				# Magic Perl CORE pragma
     }
 }
 
-use Test::More tests => 14;
+use Test::More tests => 16;
 
 BEGIN { use_ok('threads') }
 BEGIN { use_ok('Thread::Queue::Any') }
 
 my $q = Thread::Queue::Any->new;
 isa_ok( $q, 'Thread::Queue::Any', 'check object type' );
-can_ok( $q,qw(enqueue dequeue dequeue_dontwait pending dequeue_nb) );
+can_ok( $q,qw(
+ dequeue
+ dequeue_dontwait
+ dequeue_keep
+ dequeue_nb
+ enqueue
+ new
+ pending
+) );
 
 $q->enqueue( qw(a b c) );
 $q->enqueue( [qw(a b c)] );
@@ -32,9 +40,13 @@ ok(
  'check list ref'
 );
 
-my @hr = $q->dequeue;
-cmp_ok( @hr, '==', 1,			'check # elements hash ref' );
-is( ref($hr[0]), 'HASH',		'check type of hash ref' );
+my @hr = $q->dequeue_keep;
+cmp_ok( @hr, '==', 1,			'check # elements hash ref, #1' );
+is( ref($hr[0]), 'HASH',		'check type of hash ref, #1' );
+
+@hr = $q->dequeue;
+cmp_ok( @hr, '==', 1,			'check # elements hash ref, #2' );
+is( ref($hr[0]), 'HASH',		'check type of hash ref, #2' );
 ok(
  $hr[0]->{a} == 1 and $hr[0]->{b} == 2 and $hr[0]->{c} == 3,
  'check hash ref'
