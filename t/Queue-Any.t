@@ -5,6 +5,8 @@ BEGIN {				# Magic Perl CORE pragma
     }
 }
 
+use strict;
+use warnings;
 use Test::More tests => 16;
 
 BEGIN { use_ok('threads') }
@@ -30,13 +32,13 @@ is( $q->pending, 3,			'check number pending');
 
 my @l = $q->dequeue;
 is( @l, 3,				'check # elements simple list' );
-ok( $l[0] eq 'a' and $l[1] eq 'b' and $l[2] eq 'c', 'check simple list' );
+ok( ($l[0] eq 'a' and $l[1] eq 'b' and $l[2] eq 'c'), 'check simple list' );
 
 my @lr = $q->dequeue_nb;
 cmp_ok( @lr, '==', 1,			'check # elements list ref' );
 is( ref($lr[0]), 'ARRAY',		'check type of list ref' );
 ok(
- $lr[0]->[0] eq 'a' and $lr[0]->[1] eq 'b' and $lr[0]->[2] eq 'c',
+ ($lr[0]->[0] eq 'a' and $lr[0]->[1] eq 'b' and $lr[0]->[2] eq 'c'),
  'check list ref'
 );
 
@@ -48,7 +50,7 @@ is( ref($hr[0]), 'HASH',		'check type of hash ref, #1' );
 cmp_ok( @hr, '==', 1,			'check # elements hash ref, #2' );
 is( ref($hr[0]), 'HASH',		'check type of hash ref, #2' );
 ok(
- $hr[0]->{a} == 1 and $hr[0]->{b} == 2 and $hr[0]->{c} == 3,
+ ($hr[0]->{a} == 1 and $hr[0]->{b} == 2 and $hr[0]->{c} == 3),
  'check hash ref'
 );
 

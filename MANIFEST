@@ -6,3 +6,4 @@ VERSION
 Makefile.PL
 lib/Thread/Queue/Any.pm
 t/Queue-Any.t
+META.yml                                Module meta-data (added by MakeMaker)

@@ -1,3 +1,10 @@
+0.06	13 August 2003
+	Cleaned up Makefile.PL and updated copyright info.  Made sure the
+	test-suite runs ok with warnings enabled.
+
+	Removed our and ":unique" attribute as with all of my other Thread::xxx
+	modules.
+
 0.05	24 July 2002
 	Made $VERSION and @ISA have the : unique attribute to save memory.
 

@@ -4,8 +4,8 @@ package Thread::Queue::Any;
 # Make sure we have version info for this module
 # Make sure we do everything by the book from now on
 
-our @ISA : unique = qw(Thread::Queue);
-our $VERSION : unique = '0.05';
+@ISA = qw(Thread::Queue);
+$VERSION = '0.06';
 use strict;
 
 # Make sure we have Storable
@@ -170,7 +170,7 @@ Please report bugs to <perlbugs@dijkmat.nl>.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2002 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
+Copyright (c) 2002-2003 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
 reserved.  This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
