@@ -5,7 +5,7 @@ package Thread::Queue::Any;
 # Make sure we do everything by the book from now on
 
 @ISA = qw(Thread::Queue);
-$VERSION = '0.07';
+$VERSION = '0.08';
 use strict;
 
 # Make sure we have Storable
@@ -74,6 +74,10 @@ Thread::Queue::Any - thread-safe queues for any data-structure
     my ($foo,$bar,$zoo) = $q->dequeue_dontwait;
     my ($iffoo,$ifbar,$ifzoo) = $q->dequeue_keep;
     my $left = $q->pending;
+
+=head1 VERSION
+
+This documentation describes version 0.08.
 
 =head1 DESCRIPTION
 
@@ -175,7 +179,7 @@ Please report bugs to <perlbugs@dijkmat.nl>.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2002-2003 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
+Copyright (c) 2002 - 2007 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
 reserved.  This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
