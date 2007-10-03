@@ -5,7 +5,7 @@ package Thread::Queue::Any;
 # Make sure we do everything by the book from now on
 
 @ISA = qw(Thread::Queue);
-$VERSION = '0.08';
+$VERSION = '0.09';
 use strict;
 
 # Make sure we have Storable
@@ -77,7 +77,7 @@ Thread::Queue::Any - thread-safe queues for any data-structure
 
 =head1 VERSION
 
-This documentation describes version 0.08.
+This documentation describes version 0.09.
 
 =head1 DESCRIPTION
 
